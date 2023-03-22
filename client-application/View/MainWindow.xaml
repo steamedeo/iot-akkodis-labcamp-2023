@@ -1,0 +1,27 @@
+﻿<Window x:Class="AkkodisLabcamp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Background="#F6F1D3"
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="483" Width="800">
+    <Window.Resources>
+        <Style x:Key="FloorStyle" TargetType="{x:Type Rectangle}"/>
+    </Window.Resources>
+    <Grid>
+        <Rectangle Style="{DynamicResource FloorStyle}" HorizontalAlignment="Center" Height="128" Margin="0,339,0,0" Stroke="Black" VerticalAlignment="Top" Width="800">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#E9C179"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Image x:Name="TemperatureImage" Margin="446,177,301,203"/>
+        <Image x:Name="CouchImage" Margin="327,237,351,75" />
+        <Image x:Name="BookshelfImage" Margin="162,212,494,78" />
+        <Image x:Name="BookshelfHighImage" Margin="84,212,643,149" />
+        <Image x:Name="DoorImage"  Margin="540,180,86,80" />
+        <Image x:Name="LightImage"  Margin="355,0,377,370" />
+        <Button Content="Credits" HorizontalAlignment="Left" Margin="737,6,0,0" VerticalAlignment="Top" Click="Button_Click" Background="{x:Null}" BorderBrush="{x:Null}"/>
+    </Grid>
+</Window>
