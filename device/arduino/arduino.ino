@@ -10,9 +10,10 @@
 int temperatureMinSensorValue, temperatureMaxSensorValue;
 int lightMinSensorValue, lightMaxSensorValue;
 
-void setup() {
+void setup()
+{
   analogReference(EXTERNAL);
-  
+
   Serial.begin(9600);
 
   performCalibration(TEMPERATURE_PIN, &temperatureMinSensorValue, &temperatureMaxSensorValue);
@@ -20,7 +21,8 @@ void setup() {
   sendCalibrationMessage();
 }
 
-void loop() {
+void loop()
+{
   delay(TELEMETRY_DELAY);
 
   int temperatureSensorValue = analogRead(TEMPERATURE_PIN);
@@ -28,33 +30,42 @@ void loop() {
   sendTelemetryMessage(temperatureSensorValue, lightSensorValue);
 }
 
-float convertSensorValueToTemperature(int sensorValue) {
+float convertSensorValueToTemperature(int sensorValue)
+{
   float voltage = sensorValue * AREF_VOLTAGE / 1024.0;
   float temperature = (voltage - 0.5) * 100.0;
 
   return temperature;
 }
 
-void performCalibration(uint8_t sensorPin, int* minSensorValue, int* maxSensorValue) {
+void performCalibration(uint8_t sensorPin, int *minSensorValue, int *maxSensorValue)
+{
   unsigned long endCalibrationMillis = millis() + CALIBRATION_DURATION;
 
   *minSensorValue = 1024;
   *maxSensorValue = 0;
 
-  while (millis() < endCalibrationMillis) {
+  while (millis() < endCalibrationMillis)
+  {
     int sensorValue = analogRead(sensorPin);
 
-    if (sensorValue < *minSensorValue) {
+    if (sensorValue < *minSensorValue)
+    {
       *minSensorValue = sensorValue;
     }
 
-    if (sensorValue > *maxSensorValue) {
+    if (sensorValue > *maxSensorValue)
+    {
       *maxSensorValue = sensorValue;
     }
   }
+
+  *minSensorValue -= 20;
+  *maxSensorValue += 20;
 }
 
-void sendCalibrationMessage() {
+void sendCalibrationMessage()
+{
   const int capacity = JSON_OBJECT_SIZE(3) + JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(2);
   StaticJsonDocument<capacity> doc;
   doc["messageType"] = "CALIBRATION";
@@ -74,7 +85,8 @@ void sendCalibrationMessage() {
   Serial.println(output);
 }
 
-void sendTelemetryMessage(int temperatureSensorValue, int lightSensorValue) {
+void sendTelemetryMessage(int temperatureSensorValue, int lightSensorValue)
+{
   const int capacity = JSON_OBJECT_SIZE(3) + JSON_OBJECT_SIZE(3) + JSON_OBJECT_SIZE(2);
   StaticJsonDocument<capacity> doc;
   doc["messageType"] = "TELEMETRY";
