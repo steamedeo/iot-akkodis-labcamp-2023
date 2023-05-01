@@ -19,6 +19,7 @@ if config["DEFAULT"].getboolean("Local"):
 device_id = config["1khqavx3sro"]["DeviceId"]
 scope_id = config["1khqavx3sro"]["ScopeId"]
 key = config["1khqavx3sro"]["DeviceKey"]
+serial_port = config["1khqavx3sro"]["SerialPort"]
 
 
 def initialize_client():
@@ -41,7 +42,7 @@ async def main():
     client = initialize_client()
     await client.connect()
 
-    s = serial.Serial("/dev/ttyACM0", 9600)
+    s = serial.Serial(serial_port, 9600)
 
     while not client.terminated():
         if client.is_connected():
@@ -54,7 +55,6 @@ async def main():
                 print("Message successfully sent!")
             except KeyboardInterrupt:
                 s.close()
-        await asyncio.sleep(3)
 
 
 if __name__ == "__main__":
