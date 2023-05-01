@@ -8,6 +8,7 @@ import asyncio
 import configparser
 import sys
 import serial
+import json
 
 """
 Get the necessary configuration
@@ -33,6 +34,7 @@ def initialize_client():
         key
     )
     client.set_log_level(IOTCLogLevel.IOTC_LOGGING_ALL)
+    return client
 
 
 async def main():
@@ -51,7 +53,7 @@ async def main():
                 print("Received message from arduino: " + message_from_arduino)
 
                 print("Sending message to IoT Hub...")
-                await client.send_telemetry(message_from_arduino)
+                await client.send_telemetry(json.loads(message_from_arduino))
                 print("Message successfully sent!")
             except KeyboardInterrupt:
                 s.close()
