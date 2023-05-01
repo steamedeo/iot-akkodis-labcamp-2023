@@ -53,18 +53,6 @@ public partial class MainWindow : Window
         /*
          logic to manage the temperature status update
          */
-        string temperatureOffImagePath = Path.Combine(Directory.GetCurrentDirectory(), "Image", TEMPERATURE_OFF_FILENAME);
-        DataTrigger temperatureOffDataTrigger = new()
-        {
-            Binding = new Binding() { Path = new PropertyPath("TemperatureStatus") },
-            Value = "False"
-        };
-        temperatureOffDataTrigger.Setters.Add(new Setter()
-        {
-            Property = Image.SourceProperty,
-            Value = new BitmapImage(new Uri(temperatureOffImagePath))
-        });
-
         string temperatureOnImagePath = Path.Combine(Directory.GetCurrentDirectory(), "Image", TEMPERATURE_ON_FILENAME);
         DataTrigger temperatureOnDataTrigger = new()
         {
@@ -77,9 +65,21 @@ public partial class MainWindow : Window
             Value = new BitmapImage(new Uri(temperatureOnImagePath))
         });
 
+        string temperatureOffImagePath = Path.Combine(Directory.GetCurrentDirectory(), "Image", TEMPERATURE_OFF_FILENAME);
+        DataTrigger temperatureOffDataTrigger = new()
+        {
+            Binding = new Binding() { Path = new PropertyPath("TemperatureStatus") },
+            Value = "False"
+        };
+        temperatureOffDataTrigger.Setters.Add(new Setter()
+        {
+            Property = Image.SourceProperty,
+            Value = new BitmapImage(new Uri(temperatureOffImagePath))
+        });
+
         Style temperatureStyle = new() { TargetType = typeof(Image) };
-        temperatureStyle.Triggers.Add(temperatureOffDataTrigger);
         temperatureStyle.Triggers.Add(temperatureOnDataTrigger);
+        temperatureStyle.Triggers.Add(temperatureOffDataTrigger);
         TemperatureImage.Style = temperatureStyle;
 
         /*
