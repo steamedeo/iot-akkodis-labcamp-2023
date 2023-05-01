@@ -8,7 +8,7 @@ internal class MainWindowViewModel : BaseViewModel
     private ServiceBusClient? _client;
     private ServiceBusProcessor? _processor;
 
-    private bool _lightStatus;
+    private bool _lightStatus = false;
     public bool LightStatus
     {
         get { return _lightStatus; }
@@ -22,7 +22,7 @@ internal class MainWindowViewModel : BaseViewModel
         }
     }
 
-    private bool _temperatureStatus;
+    private bool _temperatureStatus = true;
     public bool TemperatureStatus
     {
         get { return _temperatureStatus; }

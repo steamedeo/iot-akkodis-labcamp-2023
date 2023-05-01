@@ -32,6 +32,7 @@ def initialize_client():
         key
     )
     client.set_log_level(IOTCLogLevel.IOTC_LOGGING_ALL)
+    return client
 
 
 async def main():
